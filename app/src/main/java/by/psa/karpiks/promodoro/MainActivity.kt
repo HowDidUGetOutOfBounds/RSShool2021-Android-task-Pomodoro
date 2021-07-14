@@ -10,7 +10,7 @@ class MainActivity : AppCompatActivity(), StopwatchListener {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val stopwatchAdapter = StopwatchAdapter()
+    private val stopwatchAdapter = StopwatchAdapter(this)
     private val stopwatches = mutableListOf<Stopwatch>()
     private var nextId = 0
 
@@ -32,21 +32,33 @@ class MainActivity : AppCompatActivity(), StopwatchListener {
     }
 
     override fun start(id: Int) {
+        changeStopwatch(id, null, true)
     }
 
-    override fun stop(id: Int) {
-        TODO("Not yet implemented")
+    override fun stop(id: Int, currentMs: Long) {
+        changeStopwatch(id, currentMs, false)
     }
 
     override fun reset(id: Int) {
-        TODO("Not yet implemented")
+        changeStopwatch(id, 0L, false)
     }
 
     override fun delete(id: Int) {
-        TODO("Not yet implemented")
+        stopwatches.remove(stopwatches.find { it.id == id })
+        stopwatchAdapter.submitList(stopwatches.toList())
     }
 
     private fun changeStopwatch(id: Int, currentMs: Long?, isStarted: Boolean){
-        val newTimes = mutableListOf<Stopwatch>()
+        val newTimers = mutableListOf<Stopwatch>()
+        stopwatches.forEach {
+            if (it.id == id) {
+                newTimers.add(Stopwatch(it.id, currentMs ?: it.currentMs, isStarted))
+            } else {
+                newTimers.add(it)
+            }
+        }
+        stopwatchAdapter.submitList(newTimers)
+        stopwatches.clear()
+        stopwatches.addAll(newTimers)
     }
 }

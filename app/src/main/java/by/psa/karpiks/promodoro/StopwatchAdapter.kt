@@ -7,13 +7,13 @@ import androidx.recyclerview.widget.ListAdapter
 import by.psa.karpiks.promodoro.databinding.StopwatchItemBinding
 
 
-class StopwatchAdapter: ListAdapter<Stopwatch, StopWatchViewHolder>(itemComparator) {
+class StopwatchAdapter(private val listener: StopwatchListener): ListAdapter<Stopwatch, StopWatchViewHolder>(itemComparator) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StopWatchViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = StopwatchItemBinding.inflate(layoutInflater, parent, false)
-        return StopWatchViewHolder(binding)
+        return StopWatchViewHolder(binding,listener,binding.root.context.resources)
     }
 
 
