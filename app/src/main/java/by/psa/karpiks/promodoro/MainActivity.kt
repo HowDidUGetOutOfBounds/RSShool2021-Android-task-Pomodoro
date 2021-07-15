@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.psa.karpiks.promodoro.databinding.ActivityMainBinding
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity(), StopwatchListener {
 
@@ -14,11 +17,23 @@ class MainActivity : AppCompatActivity(), StopwatchListener {
     private val stopwatches = mutableListOf<Stopwatch>()
     private var nextId = 0
 
+    private var current = 0L
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.customViewOne.setPeriod(PERIOD)
+
+        GlobalScope.launch {
+            while (current < PERIOD * REPEAT) {
+                current += INTERVAL
+                binding.customViewOne.setCurrent(current)
+                delay(INTERVAL)
+            }
+        }
 
         binding.recycler.apply {
             layoutManager = LinearLayoutManager(context)
@@ -60,5 +75,12 @@ class MainActivity : AppCompatActivity(), StopwatchListener {
         stopwatchAdapter.submitList(newTimers)
         stopwatches.clear()
         stopwatches.addAll(newTimers)
+    }
+
+    private companion object {
+
+        private const val INTERVAL = 100L
+        private const val PERIOD = 1000L * 30 // 30 sec
+        private const val REPEAT = 10 // 10 times
     }
 }
