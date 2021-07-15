@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity(), StopwatchListener {
             while (current < PERIOD * REPEAT) {
                 current += INTERVAL
                 binding.customViewOne.setCurrent(current)
-                delay(INTERVAL)
+                delay(10)
             }
         }
 

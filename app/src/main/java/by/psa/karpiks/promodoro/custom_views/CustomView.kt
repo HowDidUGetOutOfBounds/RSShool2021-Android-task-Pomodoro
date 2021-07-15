@@ -10,7 +10,7 @@ import androidx.annotation.AttrRes
 import by.psa.karpiks.promodoro.R
 import java.text.AttributedCharacterIterator
 
-class CustomView(context: Context,
+class CustomView @JvmOverloads constructor(context: Context,
                  attrs: AttributeSet? = null,
                  @AttrRes defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
@@ -46,10 +46,10 @@ class CustomView(context: Context,
         val startAngle = (((currentMs % periodMs).toFloat() / periodMs) * 360)
 
         canvas.drawArc(
-            0f,
-            0f,
-            width.toFloat(),
-            height.toFloat(),
+            0f+5,
+            0f+5,
+            width.toFloat()-5,
+            height.toFloat()-5,
             -90f,
             startAngle,
             true,
