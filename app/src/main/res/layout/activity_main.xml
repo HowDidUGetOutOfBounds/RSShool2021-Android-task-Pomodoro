@@ -28,15 +28,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <by.psa.karpiks.promodoro.custom_views.CustomView
-        android:id="@+id/customViewOne"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:custom_color="@color/red"
-        app:custom_style="stroke"
+    <EditText
+        android:id="@+id/etAddMinutes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:hint="00:01:00:00"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/add_new_stopwatch_button"
+        android:layout_marginBottom="55dp"
         />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

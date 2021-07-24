@@ -17,6 +17,9 @@ class StopWatchViewHolder(
 
     fun bind(stopwatch: Stopwatch){
         binding.stopwatchTimer.text = stopwatch.currentMs.displayTime()
+        //show initial visuals
+        binding.timeLeftView.setPeriod(stopwatch.allTime)
+        binding.timeLeftView.setCurrent(stopwatch.allTime - stopwatch.currentMs)
 
         if(stopwatch.isStarted)
         {
@@ -59,6 +62,10 @@ class StopWatchViewHolder(
         val drawable = resources.getDrawable(R.drawable.ic_baseline_play_arrow_24)
         binding.startPauceButton.setImageDrawable(drawable)
 
+        binding.stopwatchTimer.text = stopwatch.currentMs.displayTime()
+        binding.root.setBackgroundColor(resources.getColor(R.color.design_default_color_error))
+        binding.timeLeftView.setCurrent(stopwatch.allTime)
+
         timer?.cancel()
 
         binding.blinkingIndicator.isInvisible = true
@@ -70,13 +77,19 @@ class StopWatchViewHolder(
             val interval = UNIT_TEN_MS
 
             override fun onTick(millisUntilFinished: Long) {
-                stopwatch.currentMs += interval
+                stopwatch.currentMs -= interval
                 binding.stopwatchTimer.text = stopwatch.currentMs.displayTime()
+                binding.timeLeftView.setCurrent(stopwatch.allTime - stopwatch.currentMs)
+
+
+                if(stopwatch.currentMs <= 0)
+                {
+                    stopTimer(stopwatch)
+                }
             }
 
             override fun onFinish() {
-                binding.stopwatchTimer.text = stopwatch.currentMs.displayTime()
-            }
+                 }
         }
     }
 

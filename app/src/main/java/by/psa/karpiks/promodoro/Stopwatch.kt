@@ -3,6 +3,7 @@ package by.psa.karpiks.promodoro
 data class Stopwatch (
     val id: Int,
     var currentMs: Long,
+    var allTime: Long,
     var isStarted: Boolean
 )
 
