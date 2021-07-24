@@ -49,6 +49,8 @@ class StopWatchViewHolder(
     private fun startTimer(stopwatch: Stopwatch){
         val drawable = resources.getDrawable(R.drawable.ic_baseline_pause_24)
         binding.startPauceButton.setImageDrawable(drawable)
+        binding.root.setBackgroundColor(resources.getColor(R.color.white))
+
 
         timer?.cancel()
         timer = getCountDownTimer(stopwatch)
