@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity(), StopwatchListener {
             if (it.id == id) {
                 newTimers.add(Stopwatch(it.id, currentMs ?: it.currentMs, it.allTime, isStarted))
             } else {
-                newTimers.add(Stopwatch(it.id, currentMs ?: it.currentMs, it.allTime, false))
+                newTimers.add(Stopwatch(it.id,  it.currentMs, it.allTime, false))
             }
         }
         stopwatchAdapter.submitList(newTimers)
